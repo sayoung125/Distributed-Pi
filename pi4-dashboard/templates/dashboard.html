@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Distributed Pi - Video Analytics Dashboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <header>
+        <h1>Distributed Pi Video Analytics</h1>
+        <div id="connection-status" class="status-disconnected">Disconnected</div>
+    </header>
+
+    <main class="dashboard-grid">
+        <!-- Panel 1: Live Video Feed -->
+        <section class="panel" id="video-panel">
+            <h2>Live Feed</h2>
+            <div class="video-container">
+                <canvas id="video-canvas" width="640" height="480"></canvas>
+                <img id="video-frame" alt="Live feed" style="display:none;">
+            </div>
+            <div class="video-info">
+                <span id="frame-id">Frame: --</span>
+                <span id="frame-timestamp">--</span>
+            </div>
+        </section>
+
+        <!-- Panel 2: AI Analysis -->
+        <section class="panel" id="analysis-panel">
+            <h2>AI Analysis</h2>
+            <div class="narrative-box" id="narrative">
+                <p class="placeholder">Waiting for AI narrative...</p>
+            </div>
+            <div class="trend-box" id="trend"></div>
+            <h3>Detected Objects</h3>
+            <div id="detections-list" class="detections">
+                <p class="placeholder">No detections yet</p>
+            </div>
+            <div class="inference-info">
+                <span>Vision: <span id="vision-inference">--</span>ms</span>
+                <span>Intelligence: <span id="intel-inference">--</span>ms</span>
+            </div>
+        </section>
+
+        <!-- Panel 3: System Health -->
+        <section class="panel" id="health-panel">
+            <h2>System Health</h2>
+            <div class="nodes-grid">
+                <div class="node-card" id="node-pi1">
+                    <h3>Pi 1 <small>Processor</small></h3>
+                    <div class="metric">
+                        <label>CPU</label>
+                        <div class="bar"><div class="bar-fill" id="pi1-cpu"></div></div>
+                        <span class="value" id="pi1-cpu-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>RAM</label>
+                        <div class="bar"><div class="bar-fill" id="pi1-mem"></div></div>
+                        <span class="value" id="pi1-mem-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>Temp</label>
+                        <span class="value" id="pi1-temp">--</span>
+                    </div>
+                </div>
+                <div class="node-card" id="node-pi2">
+                    <h3>Pi 2 <small>Vision</small></h3>
+                    <div class="metric">
+                        <label>CPU</label>
+                        <div class="bar"><div class="bar-fill" id="pi2-cpu"></div></div>
+                        <span class="value" id="pi2-cpu-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>RAM</label>
+                        <div class="bar"><div class="bar-fill" id="pi2-mem"></div></div>
+                        <span class="value" id="pi2-mem-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>Temp</label>
+                        <span class="value" id="pi2-temp">--</span>
+                    </div>
+                </div>
+                <div class="node-card" id="node-pi3">
+                    <h3>Pi 3 <small>Intelligence</small></h3>
+                    <div class="metric">
+                        <label>CPU</label>
+                        <div class="bar"><div class="bar-fill" id="pi3-cpu"></div></div>
+                        <span class="value" id="pi3-cpu-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>RAM</label>
+                        <div class="bar"><div class="bar-fill" id="pi3-mem"></div></div>
+                        <span class="value" id="pi3-mem-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>Temp</label>
+                        <span class="value" id="pi3-temp">--</span>
+                    </div>
+                </div>
+                <div class="node-card" id="node-pi4">
+                    <h3>Pi 4 <small>Dashboard</small></h3>
+                    <div class="metric">
+                        <label>CPU</label>
+                        <div class="bar"><div class="bar-fill" id="pi4-cpu"></div></div>
+                        <span class="value" id="pi4-cpu-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>RAM</label>
+                        <div class="bar"><div class="bar-fill" id="pi4-mem"></div></div>
+                        <span class="value" id="pi4-mem-val">--%</span>
+                    </div>
+                    <div class="metric">
+                        <label>Temp</label>
+                        <span class="value" id="pi4-temp">--</span>
+                    </div>
+                </div>
+            </div>
+            <div class="pipeline-stats">
+                <span>Frames: <strong id="stat-frames">0</strong></span>
+                <span>Analyses: <strong id="stat-visions">0</strong></span>
+                <span>Narratives: <strong id="stat-narratives">0</strong></span>
+                <span>Uptime: <strong id="stat-uptime">0s</strong></span>
+            </div>
+        </section>
+
+        <!-- Panel 4: Timeline -->
+        <section class="panel" id="timeline-panel">
+            <h2>Timeline</h2>
+            <div id="timeline" class="timeline">
+                <p class="placeholder">No observations yet...</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.4/socket.io.min.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

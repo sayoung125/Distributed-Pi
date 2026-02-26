@@ -1,0 +1,327 @@
+/* Distributed Pi Video Analytics Dashboard - Dark Theme */
+
+:root {
+    --bg-primary: #0d1117;
+    --bg-secondary: #161b22;
+    --bg-panel: #1c2128;
+    --border: #30363d;
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --accent-blue: #58a6ff;
+    --accent-green: #3fb950;
+    --accent-orange: #d29922;
+    --accent-red: #f85149;
+    --accent-purple: #bc8cff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.status-connected {
+    color: var(--accent-green);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.status-disconnected {
+    color: var(--accent-red);
+    font-size: 13px;
+    font-weight: 500;
+}
+
+/* Dashboard Grid */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    padding: 12px;
+    height: calc(100vh - 50px);
+}
+
+.panel {
+    background: var(--bg-panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.panel h2 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+    flex-shrink: 0;
+}
+
+.panel h3 {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin: 12px 0 8px;
+}
+
+.placeholder {
+    color: var(--text-secondary);
+    font-style: italic;
+    font-size: 13px;
+}
+
+/* Video Panel */
+.video-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#video-canvas {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.video-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    flex-shrink: 0;
+}
+
+/* Analysis Panel */
+.narrative-box {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+    min-height: 60px;
+}
+
+.trend-box {
+    font-size: 13px;
+    color: var(--accent-orange);
+    margin-top: 6px;
+    min-height: 18px;
+}
+
+.detections {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.detection-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 10px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    margin-bottom: 4px;
+    font-size: 13px;
+}
+
+.detection-item .class-name {
+    font-weight: 600;
+}
+
+.detection-item .confidence {
+    color: var(--accent-green);
+    font-size: 12px;
+}
+
+.confidence-bar {
+    width: 60px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.confidence-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    background: var(--accent-green);
+}
+
+.inference-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--text-secondary);
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+/* System Health Panel */
+.nodes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    flex: 1;
+}
+
+.node-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.node-card h3 {
+    font-size: 13px;
+    color: var(--text-primary);
+    margin: 0 0 8px;
+}
+
+.node-card h3 small {
+    color: var(--text-secondary);
+    font-weight: 400;
+    margin-left: 4px;
+}
+
+.node-card.online {
+    border-color: var(--accent-green);
+}
+
+.metric {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+    font-size: 12px;
+}
+
+.metric label {
+    width: 32px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--accent-blue);
+    transition: width 0.5s ease;
+    width: 0%;
+}
+
+.metric .value {
+    width: 40px;
+    text-align: right;
+    font-size: 11px;
+    color: var(--text-secondary);
+}
+
+.pipeline-stats {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 8px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+    margin-top: 8px;
+}
+
+.pipeline-stats strong {
+    color: var(--text-primary);
+}
+
+/* Timeline Panel */
+.timeline {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.timeline-entry {
+    padding: 10px 12px;
+    border-left: 3px solid var(--accent-blue);
+    margin-bottom: 8px;
+    background: var(--bg-secondary);
+    border-radius: 0 6px 6px 0;
+}
+
+.timeline-entry .time {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.timeline-entry .narrative {
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.timeline-entry .objects {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}

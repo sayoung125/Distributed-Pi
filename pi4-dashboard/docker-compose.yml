@@ -1,0 +1,15 @@
+services:
+  dashboard:
+    build:
+      context: ..
+      dockerfile: pi4-dashboard/Dockerfile
+    container_name: pi4-dashboard
+    ports:
+      - "5000:5000"
+    environment:
+      - MQTT_BROKER_HOST=${MQTT_BROKER_HOST:-10.0.0.10}
+      - MQTT_PORT=${MQTT_PORT:-1883}
+      - NODE_NAME=pi4
+      - DASHBOARD_PORT=5000
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    restart: unless-stopped
