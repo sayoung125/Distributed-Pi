@@ -16,7 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY shared/ ./shared/
 
 # Copy vision detector code
-COPY pi2-vision/vision_detector.py .
+COPY pi4-2gb-vision/vision_detector.py .
 
 # Download YOLOv8n model at build time so it's cached in the image
 RUN python -c "from ultralytics import YOLO; YOLO('yolov8n.pt')"

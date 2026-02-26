@@ -9,13 +9,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY requirements-processor.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy shared utilities
 COPY shared/ ./shared/
 
 # Copy processor code
-COPY pi1-processor/processor.py .
+COPY pi4-4gb-dashboard/processor.py .
 
 CMD ["python", "-u", "processor.py"]

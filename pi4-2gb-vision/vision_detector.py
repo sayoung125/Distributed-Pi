@@ -1,4 +1,4 @@
-"""Pi 2: Vision Detector - Runs YOLOv8-nano on video frames."""
+"""Pi 4 2GB: Vision Detector - Runs YOLOv8-nano on video frames."""
 
 import sys
 import os
@@ -130,7 +130,7 @@ class VisionDetector:
 
 def main():
     config = get_config()
-    logger = setup_logging("pi2-vision", config["log_level"])
+    logger = setup_logging("pi4-2gb-vision", config["log_level"])
 
     running = True
 
@@ -143,11 +143,11 @@ def main():
     signal.signal(signal.SIGTERM, signal_handler)
 
     # Connect to MQTT
-    mqtt = MQTTClient(config["mqtt_broker_host"], config["mqtt_port"], "pi2")
+    mqtt = MQTTClient(config["mqtt_broker_host"], config["mqtt_port"], "pi4-2gb")
     mqtt.connect()
 
     # Start metrics publisher
-    start_metrics_publisher(mqtt, "pi2")
+    start_metrics_publisher(mqtt, "pi4-2gb")
 
     # Initialize detector
     detector = VisionDetector(mqtt, logger)

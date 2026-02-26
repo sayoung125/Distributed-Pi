@@ -1,43 +1,44 @@
 #!/bin/bash
 # Deploy script for a specific Pi node
-# Usage: ./scripts/deploy.sh <pi-number>
-# Example: ./scripts/deploy.sh 1
+# Usage: ./scripts/deploy.sh <pi-name>
+#
+# Hardware mapping:
+#   Pi Zero       -> MQTT Broker
+#   Pi 3          -> Intelligence Layer (Ollama/TinyLlama)
+#   Pi 4 2GB      -> Vision Detector (YOLOv8-nano)
+#   Pi 4 4GB      -> Frame Processor + Web Dashboard
 
 set -e
 
-PI_NUM="$1"
+PI_NAME="$1"
 
-if [ -z "$PI_NUM" ]; then
-    echo "Usage: $0 <pi-number>"
-    echo "  Options: zero, 1, 2, 3, 4"
+if [ -z "$PI_NAME" ]; then
+    echo "Usage: $0 <pi-name>"
+    echo "  Options: zero, pi3, pi4-2gb, pi4-4gb"
     exit 1
 fi
 
-# Map pi number to directory
-case "$PI_NUM" in
-    zero|0)
+# Map pi name to directory
+case "$PI_NAME" in
+    zero|pi-zero)
         DIR="pi-zero-broker"
-        NAME="MQTT Broker"
+        NAME="MQTT Broker (Pi Zero)"
         ;;
-    1)
-        DIR="pi1-processor"
-        NAME="Edge Processor"
-        ;;
-    2)
-        DIR="pi2-vision"
-        NAME="Vision Detector"
-        ;;
-    3)
+    pi3|3)
         DIR="pi3-intelligence"
-        NAME="Intelligence Layer"
+        NAME="Intelligence Layer (Pi 3)"
         ;;
-    4)
-        DIR="pi4-dashboard"
-        NAME="Dashboard"
+    pi4-2gb)
+        DIR="pi4-2gb-vision"
+        NAME="Vision Detector (Pi 4 2GB)"
+        ;;
+    pi4-4gb)
+        DIR="pi4-4gb-dashboard"
+        NAME="Processor + Dashboard (Pi 4 4GB)"
         ;;
     *)
-        echo "Unknown Pi number: $PI_NUM"
-        echo "Options: zero, 1, 2, 3, 4"
+        echo "Unknown Pi name: $PI_NAME"
+        echo "Options: zero, pi3, pi4-2gb, pi4-4gb"
         exit 1
         ;;
 esac
@@ -50,7 +51,7 @@ if [ ! -f "$COMPOSE_FILE" ]; then
     exit 1
 fi
 
-echo "=== Deploying $NAME (Pi $PI_NUM) ==="
+echo "=== Deploying $NAME ==="
 echo "Compose file: $COMPOSE_FILE"
 echo ""
 

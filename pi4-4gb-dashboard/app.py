@@ -1,4 +1,7 @@
-"""Pi 4: Dashboard & Orchestrator - Real-time web dashboard for the analytics pipeline."""
+"""Pi 4 4GB: Dashboard & Orchestrator - Real-time web dashboard for the analytics pipeline.
+
+Co-located on the same Pi as the frame processor (pi4-4gb-dashboard).
+"""
 
 import sys
 import os
@@ -39,7 +42,7 @@ state = {
 
 
 def on_frame(topic: str, payload: dict):
-    """Handle raw frame from Pi 1."""
+    """Handle raw frame from the local processor container."""
     state["latest_frame"] = payload
     state["pipeline_stats"]["frames_received"] += 1
     socketio.emit("frame_update", {
@@ -53,7 +56,7 @@ def on_frame(topic: str, payload: dict):
 
 
 def on_vision(topic: str, payload: dict):
-    """Handle vision analysis from Pi 2."""
+    """Handle vision analysis from Pi 4 2GB."""
     state["latest_vision"] = payload
     state["pipeline_stats"]["visions_received"] += 1
     socketio.emit("vision_update", payload)
@@ -121,7 +124,7 @@ def handle_connect():
 def start_mqtt():
     """Start MQTT client in a background thread."""
     config = get_config()
-    mqtt = MQTTClient(config["mqtt_broker_host"], config["mqtt_port"], "pi4")
+    mqtt = MQTTClient(config["mqtt_broker_host"], config["mqtt_port"], "pi4-4gb-dashboard")
     mqtt.connect()
 
     # Subscribe to all pipeline topics
@@ -130,8 +133,8 @@ def start_mqtt():
     mqtt.subscribe("analysis/intelligence", on_intelligence)
     mqtt.subscribe("system/metrics/#", on_metrics)
 
-    # Start metrics publisher for Pi 4 itself
-    start_metrics_publisher(mqtt, "pi4")
+    # Start metrics publisher for this Pi
+    start_metrics_publisher(mqtt, "pi4-4gb")
 
     return mqtt
 

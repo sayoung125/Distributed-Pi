@@ -1,4 +1,8 @@
-"""Pi 1: Edge Processor - Captures video frames and publishes to MQTT."""
+"""Pi 4 4GB: Edge Processor - Captures video frames and publishes to MQTT.
+
+Co-located on the same Pi as the dashboard (pi4-4gb-dashboard).
+Runs as a separate container alongside the dashboard container.
+"""
 
 import sys
 import os
@@ -53,7 +57,7 @@ def open_camera(camera_index: int, logger: logging.Logger):
 
 def main():
     config = get_config()
-    logger = setup_logging("pi1-processor", config["log_level"])
+    logger = setup_logging("pi4-4gb-processor", config["log_level"])
 
     # Graceful shutdown
     running = True
@@ -67,11 +71,11 @@ def main():
     signal.signal(signal.SIGTERM, signal_handler)
 
     # Connect to MQTT
-    mqtt = MQTTClient(config["mqtt_broker_host"], config["mqtt_port"], "pi1")
+    mqtt = MQTTClient(config["mqtt_broker_host"], config["mqtt_port"], "pi4-4gb-processor")
     mqtt.connect()
 
-    # Start metrics publisher
-    start_metrics_publisher(mqtt, "pi1")
+    # Metrics are published by the dashboard container for this node
+    # No need to duplicate here
 
     # Open camera
     camera = open_camera(CAMERA_INDEX, logger)
